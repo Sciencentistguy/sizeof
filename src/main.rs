@@ -6,13 +6,11 @@ fn main() -> Result<(), io::Error> {
     let opt = Opt::from_args();
     if !opt.path.is_file() {
         if opt.path.is_dir() {
-            eprintln!("sizeof only works on files");
+            eprintln!("sizeof: sizeof only works on files");
         } else {
             eprintln!(
                 "sizeof: error file not found: {}",
-                opt.path
-                    .to_str()
-                    .unwrap_or("<path contains invalid unicode so cannot be displayed>")
+                opt.path.file_name().unwrap().to_string_lossy()
             );
         }
         return Ok(());
