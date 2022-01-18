@@ -1,9 +1,9 @@
 use std::{self, io, path::PathBuf};
 
-use structopt::StructOpt;
+use clap::Parser;
 
 fn main() -> Result<(), io::Error> {
-    let opt = Opt::from_args();
+    let opt = Opt::parse();
     if !opt.path.is_file() {
         if opt.path.is_dir() {
             eprintln!("sizeof: sizeof only works on files");
@@ -21,9 +21,8 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-#[derive(StructOpt, Debug)]
+#[derive(Parser, Debug)]
 struct Opt {
-    #[structopt()]
     /// The path to the file.
     path: PathBuf,
 }
